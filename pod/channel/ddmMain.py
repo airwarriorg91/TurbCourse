@@ -13,7 +13,7 @@ SimEx/FLOW, Engineering Mechanics, KTH Royal Institute of Technology, Stockholm,
 
 import sys
 # Local modules
-sys.path.append('/home/pschlatt/NEK/git/TurbCourse/pod/channel/MODULES/')
+sys.path.append('PATH/TO/MODULES')
 from snapMaker   import snpAssembler,snpAssembler_sym
 from reader      import read_input
 from dbMaker     import dbMan,dbMan_sym
@@ -38,7 +38,7 @@ from pickManager import pickReader,pickReader_sym
 qoiName,nsnap,nplt,r,timeprdc,       \
 outMod,outSnp,maxMode,               \
 if3D,ifsym,ifPickSave,ifPickRead,    \
-info,info_m,info_s  = read_input('/home/pschlatt/NEK/git/TurbCourse/pod/channel/input.txt')
+info,info_m,info_s  = read_input('PATH/TO/INPUT/FILE')
 
 
 
@@ -49,7 +49,7 @@ if ifsym:
     if ifPickRead:    # reading pickle 
         Usnp,db,db_s,mvect = pickReader_sym(info,info_s)
     else:             # building data
-        db,db_m,db_s,data_ms = dbMan_sym(info,'field',info_m,'mass',info_s,'field')       # Database generation
+        db,db_m,db_s,data_ms = dbMan_sym(info,'field',if3D,info_m,'mass',info_s,'field')       # Database generation
         Usnp,mvect = snpAssembler_sym(db,db_s,data_ms,info,nsnap,ifsym,if3D,ifPickSave)   # Snapshots matrix assembly
         
 else:
@@ -57,10 +57,10 @@ else:
     if ifPickRead:    # reading pickle 
         Usnp,db,mvect = pickReader(info)
     else:             # building data
-        db,db_m,data_ms = dbMan(info,'field',info_m,'mass')                                # Database generation
+        db,db_m,data_ms = dbMan(info,'field',if3D,info_m,'mass')                                # Database generation
         Usnp,mvect = snpAssembler(db,data_ms,info,nsnap,ifsym,if3D,ifPickSave)             # Snapshots matrix assembly     
     
-
+print(db['data'][0].var)
 
 
 # ------- CALCULATION
