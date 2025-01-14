@@ -20,6 +20,7 @@ from dbMaker     import dbMan,dbMan_sym
 from PODmodule   import POD
 #from DMDmodule   import DMD
 from plotter     import pplot,pplotc,savetxt
+from freqAnalysis import freqPOD
 from outpWriter  import modes,snaprcn,prdct
 from pickManager import pickReader,pickReader_sym
 
@@ -79,6 +80,7 @@ if (info['module']=='POD'):
     pplot(A2,Lam2,nplt,'coeff')
     pplot(A2,Lam2,nplt,'eigen')
     savetxt(Lam2,info)
+    freqPOD(A2,10,nplt,0.1,info) # freqPOD(A2,maxModes,nplt,timestep,info)
 elif (info['module']=='DMD'): 
     pplotc(Lambdat)
     savetxt(Lambdat,info)
